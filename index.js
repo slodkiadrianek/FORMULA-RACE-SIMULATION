@@ -1,9 +1,6 @@
 "use strict";
 
-// const driver = {
-//   name: "Max Verstappen",
-//   averageRacePace: 1000 + 350 + 6,
-// };
+const list = document.querySelector(".list");
 
 function raceSim() {
   const tires = ["soft", "hard"];
@@ -53,11 +50,11 @@ function raceSim() {
   }
 
   for (let i = 1; i < 59; i++) {
-    if (tire === "soft" && stint < 17) {
+    if (tire === "soft" && stint < 16) {
       if (i === 58) {
         times.push(stintTimes);
       } else {
-        if (stint === 16) {
+        if (stint === 15) {
           pitStop();
           stint = 0;
         } else {
@@ -127,9 +124,17 @@ function removeDuplicates(arr) {
 
 const allSortedStrategies = new Set([...allStrategies]);
 
-console.log(removeDuplicates(allStrategies));
-// console.log(sortedTimes);
-// console.log(strategy);
+const showList = removeDuplicates(allStrategies);
 
-// console.log(`Laps Done ${times.length}`, `Next lap time: ${el / 100000}s`);
-// console.log(`Time of the race: ${totalTime / 100000}s`);
+const bestTimeOverall = showList.reduce((acc, cur) => {
+  if (acc > cur[2]) {
+    acc = cur[2];
+    return acc;
+  } else {
+    return acc;
+  }
+}, showList[0][2]);
+
+const bestStrategy = showList.find((el) => el[2] === bestTimeOverall);
+console.log(bestStrategy);
+console.log(`Total number of strategies: ${showList.length}`);
